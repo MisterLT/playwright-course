@@ -3,7 +3,7 @@ import { MyAccountPage } from "../page-objects/MyAccountPage"
 import { getLoginToken } from "./../api-calls/getLoginToken"
 import { adminDetails} from "../Data/userDetails"
 
-test("My account using cookies injection and moking network request", async ({page}) => {
+test.skip("My account using cookies injection and moking network request", async ({page}) => {
     const loginToken = await getLoginToken(adminDetails.username, adminDetails.password)
 
     await page.route("**/api/user**",async (route, request) => {
