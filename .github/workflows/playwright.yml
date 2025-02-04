@@ -1,4 +1,4 @@
-name: Playwright Test
+name: Playwright Tests
 on:
   push:
     branches: [ main ]
@@ -6,16 +6,16 @@ jobs:
   playwrighttests:
     runs-on: ubuntu-latest
     container:
-      image: mcr.microsoft.com/playwright:v1.29.1-focal
+      image: mcr.microsoft.com/playwright:v1.49.1-focal
       env:
-        ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD}}
-    steps: 
+        ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
+    steps:
       - name: Checkout repository
-        uses: actions/checkout@v2  
+        uses: actions/checkout@v2
       - name: Run tests
         run: |
-          echo "Strart the shopping store application"
-          chmod +x ./shopping-store-linux-amd64 &
+          echo "Start the shopping store application"
+          ./shopping-store-linux-amd64 &
           echo "Install dependencies from lockfile"
           npm ci
           echo "Run playwright tests"
