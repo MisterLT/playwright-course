@@ -57,7 +57,6 @@ export class PaymentPage {
 
         await expect(discountValue).toBeLessThan(totalValueInt)
 
-        await this.page.pause()
 
     }
 
@@ -72,7 +71,6 @@ export class PaymentPage {
         await this.creditCardValidUntil.fill(userDetails.validUntilnumeber)
         await this.creditCardCVC.waitFor()
         await this.creditCardCVC.fill(userDetails.cardCVC)
-        //await this.page.pause()
     } 
 
     completePayment = async () => {
@@ -80,7 +78,7 @@ export class PaymentPage {
         await this.payButton.click()
         
         await this.page.waitForURL(/\/thank-you/, {timeout: 3000})
-            await this.page.pause()
+           // await this.page.pause()
     }
 
 
