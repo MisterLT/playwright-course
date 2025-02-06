@@ -102,9 +102,10 @@ const config = {
 
   /* Run your local dev server before starting the tests */
   webServer: {
-    command: './shopping-store-linux-amd64 &',  // Inicia el servidor en segundo plano
-    port: 2221, // Puerto que usa la aplicación
-    timeout: 120 * 1000, // Asegura que haya suficiente tiempo para iniciar
+    command: './shopping-store-linux-amd64 &',
+    port: 2221,
+    timeout: 120 * 1000,
+    reuseExistingServer: true, // Permite reutilizar el servidor si ya está corriendo
   },
 };
 
