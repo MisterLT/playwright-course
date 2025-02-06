@@ -21,9 +21,10 @@ jobs:
         run: |
           ./shopping-store-linux-amd64 &
           echo "Esperando que el servidor esté activo..."
-          until curl --output /dev/null --silent --head --fail http://localhost:2221; do
-              echo "Servidor no disponible, esperando..."
-              sleep 2
+          for i in {1..30}; do
+            curl --output /dev/null --silent --head --fail http://localhost:2221 && break
+            echo "Servidor no disponible, esperando..."
+            sleep 2
           done
           echo "Servidor activo en http://localhost:2221"
 
