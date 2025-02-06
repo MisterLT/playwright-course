@@ -102,11 +102,11 @@ const config = {
 
   /* Run your local dev server before starting the tests */
   webServer: {
-    command: './shopping-store-linux-amd64 &',
-    port: 2221,
-    timeout: 120 * 1000,
-    reuseExistingServer: true, // Permite reutilizar el servidor si ya está corriendo
-  },
+    command: './shopping-store-linux-amd64',
+    url: 'http://localhost:2221',
+    timeout: 120 * 1000,  // Espera hasta 120s para que el servidor inicie
+    reuseExistingServer: !process.env.CI,  // Solo reinicia si está en CI
+  },  
 };
 
 module.exports = config;
