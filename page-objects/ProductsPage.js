@@ -13,7 +13,7 @@ export class ProductsPage {
     }
 
     visit = async () => {
-        await page.goto('/', { waitUntil: 'networkidle' });
+        await this.page.goto('/', { waitUntil: 'networkidle' });
 
     }
 
