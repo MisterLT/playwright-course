@@ -101,10 +101,11 @@ const config = {
   // outputDir: 'test-results/',
 
   /* Run your local dev server before starting the tests */
-  // webServer: {
-  //   command: 'npm run start',
-  //   port: 3000,
-  // },
+  webServer: {
+    command: './shopping-store-linux-amd64 &',  // Inicia el servidor en segundo plano
+    port: 2221, // Puerto que usa la aplicación
+    timeout: 120 * 1000, // Asegura que haya suficiente tiempo para iniciar
+  },
 };
 
 module.exports = config;

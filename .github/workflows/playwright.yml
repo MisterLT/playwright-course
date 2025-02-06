@@ -2,7 +2,6 @@ name: Playwright Tests
 on:
   push:
     branches: [ main ]
-
 jobs:
   playwrighttests:
     runs-on: ubuntu-latest
@@ -12,21 +11,13 @@ jobs:
         ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Set execute permissions for the shopping store binary
-        run: chmod +x ./shopping-store-linux-amd64
+        uses: actions/checkout@v2
 
       - name: Start the shopping store application
         run: |
-          ./shopping-store-linux-amd64 &
-          echo "Esperando que el servidor esté activo..."
-          for i in {1..30}; do
-            curl --output /dev/null --silent --head --fail http://localhost:2221 && break
-            echo "Servidor no disponible, esperando..."
-            sleep 2
-          done
-          echo "Servidor activo en http://localhost:2221"
+          chmod +x ./shopping-store-linux-amd64
+          ./shopping-store-linux-amd64 &  
+          sleep 10  
 
       - name: Install dependencies
         run: npm ci
