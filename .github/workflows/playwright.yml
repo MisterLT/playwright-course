@@ -13,25 +13,22 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Stop existing server (if running)
-        run: |
-          echo "Deteniendo cualquier proceso en el puerto 2221..."
-          fuser -k 2221/tcp || true
-          pkill -f shopping-store-linux-amd64 || true
-          echo "Verificando que el puerto 2221 está libre..."
-          sleep 5  # Espera un momento para asegurarse de que el proceso se cerró
-
-      - name: Start the shopping store application
-        run: |
-          chmod +x ./shopping-store-linux-amd64
-          ./shopping-store-linux-amd64 &  # Inicia el servidor en segundo plano
-          echo "Esperando a que el servidor esté listo..."
-          sleep 15  # Espera 15 segundos antes de verificar
-          echo "Verificando si el servidor responde..."
-          curl --retry 10 --retry-connrefused --retry-delay 5 -s http://localhost:2221 || (echo "El servidor no se inició correctamente" && exit 1)
-
-      - name: Install dependencies
+      - name: Instalar dependencias
         run: npm ci
 
-      - name: Run Playwright tests
+      - name: Verificar y detener cualquier proceso en puerto 2221
+        run: |
+          sudo lsof -i :2221 && sudo kill -9 $(sudo lsof -t -i:2221) || echo "No hay procesos en el puerto 2221"
+
+      - name: Iniciar la aplicación de prueba
+        run: |
+          chmod +x ./shopping-store-linux-amd64
+          nohup ./shopping-store-linux-amd64 > server.log 2>&1 &  # Ejecuta el servidor en segundo plano
+          echo "Esperando a que el servidor esté listo..."
+          sleep 20  # Espera 20 segundos antes de verificar
+
+      - name: Verificar que el servidor está corriendo
+        run: curl --retry 10 --retry-connrefused --retry-delay 5 -s http://localhost:2221 || exit 1
+
+      - name: Ejecutar pruebas con Playwright
         run: npm run test:ci

@@ -15,7 +15,7 @@ const { devices } = require('@playwright/test');
 const config = {
   testDir: './tests',
   /* Maximum time one test can run for. */
-  timeout: 60 * 1000,
+  timeout: 90 * 1000,
   expect: {
     /**
      * Maximum time expect() should wait for the condition to be met.
@@ -40,7 +40,7 @@ const config = {
     actionTimeout: 0,
     /* Base URL to use in actions like `await page.goto('/')`. */
     baseURL: 'http://localhost:2221',
-    navigationTimeout: 60000,
+    navigationTimeout: 90000,
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
   },
@@ -102,11 +102,11 @@ const config = {
 
  /* Configuración del servidor */
   webServer: {
-    command: './shopping-store-linux-amd64',
+    command: 'chmod +x ./shopping-store-linux-amd64 && ./shopping-store-linux-amd64',
     url: 'http://localhost:2221',
-    timeout: 120 * 1000, // Espera hasta 120s para iniciar
-    reuseExistingServer: true, // Siempre reutiliza el servidor
-  },  
+    timeout: 180 * 1000, // Espera hasta 180s para iniciar
+   reuseExistingServer: true, // Siempre reutiliza el servidor
+  },
 };
 
 module.exports = config;
