@@ -100,12 +100,12 @@ const config = {
   /* Folder for test artifacts such as screenshots, videos, traces, etc. */
   // outputDir: 'test-results/',
 
-  /* Run your local dev server before starting the tests */
+ /* Configuración del servidor */
   webServer: {
     command: './shopping-store-linux-amd64',
     url: 'http://localhost:2221',
-    timeout: 120 * 1000,  // Espera hasta 120s para que el servidor inicie
-    reuseExistingServer: !process.env.CI,  // Solo reinicia si está en CI
+    timeout: 120 * 1000, // Espera hasta 120s para iniciar
+    reuseExistingServer: true, // Siempre reutiliza el servidor
   },  
 };
 
